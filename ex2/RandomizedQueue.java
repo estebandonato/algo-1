@@ -50,7 +50,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         Item item = (Item) items[idx];
         items[idx] = null;
         size--;
-        if (size <= items.length/4) {
+        if (items.length > 1 && size <= items.length/4) {
             Object[] newItems = new Object[items.length/2];
             int oldNext = next;
             next = 0;
@@ -120,20 +120,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     
     public static void main(String[] args) {
         RandomizedQueue<Integer> q = new RandomizedQueue<>();
-        q.enqueue(1);
-        q.enqueue(2);
-        q.enqueue(3);
-        q.enqueue(4);
-        q.enqueue(5);
-        q.enqueue(6);
-        for (int i : q) {
-            System.out.print(i + " ");
+        while(true) {
+            int enq = StdRandom.uniform(5);
+            for(int i=0; i < enq; i++){
+                q.enqueue(1);
+            }
+            enq = StdRandom.uniform(5);
+            for(int i=0; i < enq; i++){
+                try{
+                    q.dequeue();    
+                } catch (NoSuchElementException e) {}
+                
+            }
         }
-        System.out.println();
-        System.out.println("---------");
-        for (int i : q) {
-            System.out.print(i + " ");
-        }
-
     }
 }

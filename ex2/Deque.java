@@ -8,7 +8,7 @@ public class Deque<Item> implements Iterable<Item> {
     private ItemNode last;
     private int size;
     
-    class ItemNode {
+    private class ItemNode {
         Item val;
         ItemNode next;
         ItemNode previous;
@@ -30,10 +30,13 @@ public class Deque<Item> implements Iterable<Item> {
         ItemNode node = new ItemNode();
         node.val = item;
         node.next = first;
-        first = node;
+        
         if (size == 0) {
             last = node;
+        } else {
+           first.previous = node; 
         }
+        first = node;
         size++;
     }
     
