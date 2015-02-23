@@ -10,7 +10,7 @@ public class Point implements Comparable<Point> {
             double slope1 = slopeTo(p1);
             double slope2 = slopeTo(p2);
             double slopeDiff = slope1 - slope2;
-            if (slopeDiff == 0) {
+            if (Double.isNaN(slopeDiff) || slopeDiff == 0) {
                 return 0;
             } else if (slopeDiff > 0) {
                 return 1;
