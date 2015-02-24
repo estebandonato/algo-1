@@ -14,6 +14,7 @@ public class Fast {
          StdDraw.setYscale(0, 32768);
          
          for (i = 0; i < points.length; i++) {
+        	 points[i].draw();
         	 int idx = 0;
         	 for (int j = 0; j < points.length; j++) {
         		 if (i != j) {
@@ -35,14 +36,13 @@ public class Fast {
         				 Object[] pis = new Object[pointsInSegment];
         				 pis[0] = points[i];
         				 String print = "%s";
-        				 int idx = 1;
+        				 idx = 1;
         				 for (int z = j - pointsInSegment + 1; z < j; z++ ) {
         					 print += " -> %s";
         					 points[i].drawTo(points[distances[z].pointIdx]);
-        					 pis[idx++]
+        					 pis[idx++] = points[distances[z].pointIdx];
         				 }
-        				 StdOut.printf("%s -> %s -> %s -> %s\n", new Object[5]);
-                         points[i].drawTo(points[q]);
+        				 StdOut.printf(print + "\n", pis);
         			 }
         			 lastSlope = distances[j].slope;
         			 pointsInSegment = 2;
