@@ -16,10 +16,10 @@ public class Brute {
             for (int q = p + 1; q < points.length; q++) {
                 for (int r = q + 1; r < points.length; r++) {
                     for (int s = r + 1; s < points.length; s++) {
-                        //TODO bug with vertical lines
                         if (points[p].SLOPE_ORDER.compare(points[q], points[r]) == 0 && 
                                 points[p].SLOPE_ORDER.compare(points[q], points[s]) == 0) {
-                            StdOut.printf("%s -> %s -> %s -> %s\n", p, q, r, s);
+                            StdOut.printf("%s -> %s -> %s -> %s\n", points[p], points[q], 
+                            		points[r], points[s]);
                             points[p].drawTo(points[q]);
                             points[p].drawTo(points[r]);
                             points[p].drawTo(points[s]);
