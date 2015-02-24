@@ -32,7 +32,6 @@ public class Fast {
         			 pointsInSegment++;
         		 } else if (j == 0 || distances[j].slope != lastSlope) {
         			 if (validSegment && pointsInSegment >= 4) {
-        				 //print & draw last 3 points + pivot
         				 Object[] pis = new Object[pointsInSegment];
         				 pis[0] = points[i];
         				 String print = "%s";
@@ -49,6 +48,20 @@ public class Fast {
         			 validSegment = distances[j].pointIdx > i;
         		 }
         	 }
+        	 
+        	 //TODO refactoring
+        	 if (validSegment && pointsInSegment >= 4) {
+				 Object[] pis = new Object[pointsInSegment];
+				 pis[0] = points[i];
+				 String print = "%s";
+				 idx = 1;
+				 for (int z = distances.length - pointsInSegment + 1; z < distances.length; z++ ) {
+					 print += " -> %s";
+					 points[i].drawTo(points[distances[z].pointIdx]);
+					 pis[idx++] = points[distances[z].pointIdx];
+				 }
+				 StdOut.printf(print + "\n", pis);
+			 }
          }
     }
     
