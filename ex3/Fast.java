@@ -32,16 +32,8 @@ public class Fast {
         			 pointsInSegment++;
         		 } else if (j == 0 || distances[j].slope != lastSlope) {
         			 if (validSegment && pointsInSegment >= 4) {
-        				 Object[] pis = new Object[pointsInSegment];
-        				 pis[0] = points[i];
-        				 String print = "%s";
-        				 idx = 1;
-        				 for (int z = j - pointsInSegment + 1; z < j; z++ ) {
-        					 print += " -> %s";
-        					 points[i].drawTo(points[distances[z].pointIdx]);
-        					 pis[idx++] = points[distances[z].pointIdx];
-        				 }
-        				 StdOut.printf(print + "\n", pis);
+        				 drawPrintSegment(points, distances, 
+        						 pointsInSegment, j - pointsInSegment + 1, points[i]);
         			 }
         			 lastSlope = distances[j].slope;
         			 pointsInSegment = 2;
@@ -49,20 +41,25 @@ public class Fast {
         		 }
         	 }
         	 
-        	 //TODO refactoring
         	 if (validSegment && pointsInSegment >= 4) {
-				 Object[] pis = new Object[pointsInSegment];
-				 pis[0] = points[i];
-				 String print = "%s";
-				 idx = 1;
-				 for (int z = distances.length - pointsInSegment + 1; z < distances.length; z++ ) {
-					 print += " -> %s";
-					 points[i].drawTo(points[distances[z].pointIdx]);
-					 pis[idx++] = points[distances[z].pointIdx];
-				 }
-				 StdOut.printf(print + "\n", pis);
+        		 drawPrintSegment(points, distances, pointsInSegment, 
+        				 distances.length - pointsInSegment +1, points[i]);
 			 }
          }
+    }
+    
+    private static void drawPrintSegment(Point[] points, Distance[] distances, 
+    		int pointsInSegment, int from, Point pivot) {
+    	Object[] pis = new Object[pointsInSegment];
+		 pis[0] = pivot;
+		 String print = "%s";
+		 int idx = 1;
+		 for (int z = from; z < from + pointsInSegment -1; z++ ) {
+			 print += " -> %s";
+			 pivot.drawTo(points[distances[z].pointIdx]);
+			 pis[idx++] = points[distances[z].pointIdx];
+		 }
+		 StdOut.printf(print + "\n", pis);
     }
     
     private static class Distance implements Comparable<Distance> {
