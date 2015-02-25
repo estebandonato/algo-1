@@ -1,4 +1,3 @@
-
 public class Brute {
 
     public static void main(String[] args) {
@@ -7,7 +6,8 @@ public class Brute {
         int i = 0;
         while (in.hasNextLine()) {
             String[] coord = in.readLine().trim().split("\\s+");
-            points[i++] = new Point(Integer.parseInt(coord[0]), Integer.parseInt(coord[1]));
+            points[i++] = new Point(Integer.parseInt(coord[0]),
+                    Integer.parseInt(coord[1]));
         }
         StdDraw.setXscale(0, 32768);
         StdDraw.setYscale(0, 32768);
@@ -16,13 +16,14 @@ public class Brute {
             for (int q = p + 1; q < points.length; q++) {
                 for (int r = q + 1; r < points.length; r++) {
                     for (int s = r + 1; s < points.length; s++) {
-                        if (points[p].SLOPE_ORDER.compare(points[q], points[r]) == 0 && 
-                                points[p].SLOPE_ORDER.compare(points[q], points[s]) == 0) {
-                            StdOut.printf("%s -> %s -> %s -> %s\n", points[p], points[q], 
-                            		points[r], points[s]);
-                            points[p].drawTo(points[q]);
-                            points[p].drawTo(points[r]);
-                            points[p].drawTo(points[s]);
+                        if (points[p].SLOPE_ORDER.compare(points[q], points[r]) == 0
+                                && points[p].SLOPE_ORDER.compare(points[q],points[s]) == 0) {
+                            Point[] segment = new Point[] { points[p],
+                                    points[q], points[r], points[s] };
+                            Insertion.sort(segment);
+                            StdOut.printf("%s -> %s -> %s -> %s\n",
+                                    (Object[]) segment);
+                            segment[0].drawTo(segment[3]);
                         }
                     }
                 }

@@ -20,8 +20,8 @@ public class Point implements Comparable<Point> {
         }
     };
 
-    private final int x;                              // x coordinate
-    private final int y;                              // y coordinate
+    private final int x; // x coordinate
+    private final int y; // y coordinate
 
     // create the point (x, y)
     public Point(int x, int y) {
@@ -47,7 +47,11 @@ public class Point implements Comparable<Point> {
         int dy = that.y - this.y;
         int dx = that.x - this.x;
         if (dx == 0) {
-            return dy == 0 ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+            if (dy == 0) {
+                return Double.NEGATIVE_INFINITY;
+            } else {
+                return Double.POSITIVE_INFINITY;
+            }
         } else if (dy == 0) {
             return 0d;
         }
@@ -72,6 +76,7 @@ public class Point implements Comparable<Point> {
 
     // unit test
     public static void main(String[] args) {
-        //StdOut.println(new Point(0, 0).SLOPE_ORDER.compare(new Point(1, 10), new Point(0, 1)));
+        // StdOut.println(new Point(0, 0).SLOPE_ORDER.compare(new Point(1, 10),
+        // new Point(0, 1)));
     }
 }
