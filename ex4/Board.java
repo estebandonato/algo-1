@@ -5,16 +5,12 @@ import java.util.List;
 public class Board {
     
     private int[][] blocks;
-    private Pos blankPos;
     
     public Board(int[][] blocks) {
         this.blocks = new int[blocks.length][blocks.length];
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks.length; j++) {
                 this.blocks[i][j] = blocks[i][j];
-                if (blocks[i][j] == 0) {
-                    blankPos = new Pos(i, j);
-                }
             }
         }
     }
@@ -28,7 +24,7 @@ public class Board {
         int distance = 0;
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks.length; j++) {
-                if ( !isLastBlock(i, j) && blocks[i][j] != expectedVal) {
+                if (!isLastBlock(i, j) && blocks[i][j] != expectedVal) {
                     distance++;
                 }
                 expectedVal++;
@@ -42,7 +38,7 @@ public class Board {
         int distance = 0;
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks.length; j++) {
-                if ( blocks[i][j] != 0 && blocks[i][j] != expectedVal) {
+                if (blocks[i][j] != 0 && blocks[i][j] != expectedVal) {
                     Pos correctPos = getPosForVal(blocks[i][j]);
                     distance += Math.abs(i - correctPos.i) + Math.abs(j - correctPos.j);
                 }
@@ -52,9 +48,9 @@ public class Board {
         return distance;
     }
     private Pos getPosForVal(int val) {
-        val -= 1;
-        int i = val / dimension();
-        int j = val % dimension();
+        int val1 = val - 1;
+        int i = val1 / dimension();
+        int j = val1 % dimension();
         return new Pos(i, j);
     }
     private class Pos {
@@ -70,7 +66,7 @@ public class Board {
         int expectedVal = 1;
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks.length; j++) {
-                if ( !isLastBlock(i, j) && blocks[i][j] != expectedVal) {
+                if (!isLastBlock(i, j) && blocks[i][j] != expectedVal) {
                     return false;
                 }
                 expectedVal++;
@@ -116,8 +112,19 @@ public class Board {
         }
         return true;
     }
+    private Pos findBlank() {
+        for (int i = 0; i < blocks.length; i++) {
+            for (int j = 0; j < blocks.length; j++) {
+                if (blocks[i][j] == 0) {
+                    return new Pos(i, j);
+                }
+            }
+        }
+        return null;
+    }
     public Iterable<Board> neighbors() {
         List<Board> neighbors = new ArrayList<>(4);
+        Pos blankPos = findBlank();
         if (blankPos.i + 1 < dimension()) {
             blocks[blankPos.i][blankPos.j] = blocks[blankPos.i + 1][blankPos.j];
             blocks[blankPos.i + 1][blankPos.j] = 0;
@@ -167,14 +174,5 @@ public class Board {
         return str;
     }
     public static void main(String[] args) {
-        Board b = new Board(new int[][]{{4,1,2},{3,0,5},{6,7,8}});
-        StdOut.println(b);
-        for (Board n : b.neighbors()) {
-            StdOut.println(n);
-        }
-        //StdOut.println(b.twin());
-        //StdOut.println(b.isGoal());
-        //StdOut.println(b.hamming());
-        //StdOut.println(b.manhattan());
     }
 }

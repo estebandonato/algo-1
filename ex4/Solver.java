@@ -33,13 +33,13 @@ public class Solver {
             int nmove = node.moves + 1;
             for (Board nb : node.board.neighbors()) {
                 if (node.previous == null || !node.previous.board.equals(nb)) {
-                    pq.insert(new SearchNode(nb,nb.manhattan() + nmove, nmove, node));
+                    pq.insert(new SearchNode(nb, nb.manhattan() + nmove, nmove, node));
                 }
             }
             nmove = twinNode.moves + 1;
             for (Board nb : twinNode.board.neighbors()) {
                 if (twinNode.previous == null || !twinNode.previous.board.equals(nb)) {
-                    pqTwin.insert(new SearchNode(nb,nb.manhattan() + nmove, nmove, twinNode));
+                    pqTwin.insert(new SearchNode(nb, nb.manhattan() + nmove, nmove, twinNode));
                 }
             }
         }
