@@ -149,10 +149,18 @@ public class Board {
         return neighbors;
     }
     public String toString() {
+        int spaces = (int) Math.log10(dimension() * dimension() - 1);
         String str = Integer.toString(dimension());
         for (int i = 0; i < blocks.length; i++) {
             str += "\n";
             for (int j = 0; j < blocks.length; j++) {
+                int s = spaces - (int) Math.log10(blocks[i][j]);
+                if (blocks[i][j] == 0) {
+                    s = spaces;
+                }
+                for (int z = 0; z < s; z++) {
+                    str += " ";
+                }
                 str += blocks[i][j] + " ";
             }
         }
